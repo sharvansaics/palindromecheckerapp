@@ -7,9 +7,9 @@ public class Palindromecheckerapp {
         reverse = new StringBuilder(original).reverse().toString();
 
         if (original.equals(reverse)) {
-            System.out.println(original + " is a palindrome.");
+            System.out.println(original + " is a palindrome. ");
         } else {
-            System.out.println(original + " is not a palindrome.");
+            System.out.println(original + " is not a palindrome. ");
         }
     }
 }
