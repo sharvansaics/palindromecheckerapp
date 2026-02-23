@@ -3,7 +3,7 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class Palindromecheckerapp {
+public class PalindromeStack {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a string: ");
@@ -17,17 +17,3 @@ public class Palindromecheckerapp {
             stack.push(c);
             queue.add(c);
         }
-
-        boolean isPalindrome = true;
-
-        while (!stack.isEmpty()) {
-            if (stack.pop() != queue.remove()) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        System.out.println(isPalindrome ? "✅ Result: It is a palindrome!" : "❌ Result: It is NOT a palindrome.");
-        scanner.close();
-    }
-}
