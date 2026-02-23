@@ -3,7 +3,7 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class PalindromeComparison {
+public class Palindromecheckerapp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a string: ");
