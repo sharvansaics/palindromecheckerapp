@@ -1,15 +1,32 @@
+import java.util.Scanner;
+
 public class Palindromecheckerapp {
     public static void main(String[] args) {
-        String original = "radar";
-        String reverse = "";
+        Scanner scanner = new Scanner(System.in);
 
-        // Using StringBuilder to reverse the string easily
-        reverse = new StringBuilder(original).reverse().toString();
+        System.out.print("Enter a string to check: ");
+        String original = scanner.nextLine();
 
-        if (original.equals(reverse)) {
-            System.out.println(original + " is a palindrome.");
-        } else {
-            System.out.println(original + " is not a palindrome.");
+        // 1. Reverse string using a loop
+        String reversed = "";
+
+        // We start from the last index (length - 1) and move to 0
+        for (int i = original.length() - 1; i >= 0; i--) {
+            // String Concatenation (+) - creates a new string object each time
+            reversed = reversed + original.charAt(i);
         }
+
+        System.out.println("Original: " + original);
+        System.out.println("Reversed: " + reversed);
+
+        // 2. Compare original and reversed using .equals()
+        // Note: We use .equals() because '==' compares memory addresses, not content
+        if (original.equalsIgnoreCase(reversed)) {
+            System.out.println("Result: It is a palindrome!");
+        } else {
+            System.out.println("Result: It is NOT a palindrome.");
+        }
+
+        scanner.close();
     }
 }
