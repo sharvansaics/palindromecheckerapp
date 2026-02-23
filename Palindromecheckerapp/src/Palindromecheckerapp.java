@@ -1,35 +1,42 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class PalindromeStack {
+public class Palindromecheckerapp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().toLowerCase();
 
-        // 1. Create a Stack of Characters
-        Stack<Character> stack = new Stack<>();
+        // 1. Initialize Data Structures
+        Stack<Character> stack = new Stack<>();       // LIFO
+        Queue<Character> queue = new LinkedList<>();  // FIFO
 
-        // 2. Push Operation: Insert each character into the stack
+        // 2. Enqueue and Push characters
         for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
+            char c = input.charAt(i);
+            stack.push(c);   // Adds to top
+            queue.add(c);    // Adds to back
         }
 
-        // 3. Pop and Compare: Reversal Logic
-        StringBuilder reversedBuilder = new StringBuilder();
+        boolean isMatch = true;
+
+        // 3. Compare dequeue vs pop
+        // The Queue gives us the string from start-to-end (FIFO)
+        // The Stack gives us the string from end-to-start (LIFO)
         while (!stack.isEmpty()) {
-            // Pop removes from the top (the end of the original string)
-            reversedBuilder.append(stack.pop());
+            if (stack.pop() != queue.remove()) {
+                isMatch = false;
+                break;
+            }
         }
 
-        String reversed = reversedBuilder.toString();
-        System.out.println("Reversed via Stack: " + reversed);
-
-        // 4. Print Result (Compare original vs reversed)
-        if (input.equalsIgnoreCase(reversed)) {
-            System.out.println("✅ Result: It is a palindrome!");
+        // 4. Print Result
+        if (isMatch) {
+            System.out.println("✅ It's a palindrome! (FIFO and LIFO sequences matched)");
         } else {
-            System.out.println("❌ Result: It is NOT a palindrome.");
+            System.out.println("❌ Not a palindrome. (Sequences differed)");
         }
 
         scanner.close();
