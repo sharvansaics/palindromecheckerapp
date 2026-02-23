@@ -1,34 +1,35 @@
 import java.util.Scanner;
+import java.util.Stack;
 
-public class Palindromecheckerapp {
+public class PalindromeStack {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        // 1. Convert string to char array
-        char[] chars = input.toLowerCase().toCharArray();
+        // 1. Create a Stack of Characters
+        Stack<Character> stack = new Stack<>();
 
-        // 2. Use two-pointer approach
-        boolean isPalindrome = true;
-        int start = 0;               // Pointer 1: Beginning
-        int end = chars.length - 1;  // Pointer 2: End
-
-        while (start < end) {
-            // 3. Compare start & end characters
-            if (chars[start] != chars[end]) {
-                isPalindrome = false;
-                break; // Stop immediately if a mismatch is found
-            }
-            start++; // Move forward
-            end--;   // Move backward
+        // 2. Push Operation: Insert each character into the stack
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
         }
 
-        // Display result
-        if (isPalindrome) {
-            System.out.println("Result: It is a palindrome!");
+        // 3. Pop and Compare: Reversal Logic
+        StringBuilder reversedBuilder = new StringBuilder();
+        while (!stack.isEmpty()) {
+            // Pop removes from the top (the end of the original string)
+            reversedBuilder.append(stack.pop());
+        }
+
+        String reversed = reversedBuilder.toString();
+        System.out.println("Reversed via Stack: " + reversed);
+
+        // 4. Print Result (Compare original vs reversed)
+        if (input.equalsIgnoreCase(reversed)) {
+            System.out.println("✅ Result: It is a palindrome!");
         } else {
-            System.out.println("Result: It is NOT a palindrome.");
+            System.out.println("❌ Result: It is NOT a palindrome.");
         }
 
         scanner.close();
