@@ -1,34 +1,43 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Palindromecheckerapp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().toLowerCase();
 
-        // 1. Convert string to char array
-        char[] chars = input.toLowerCase().toCharArray();
+        // 1. Initialize Data Structures
+        Stack<Character> stack = new Stack<>();       // LIFO
+        Queue<Character> queue = new LinkedList<>();  // FIFO
 
-        // 2. Use two-pointer approach
-        boolean isPalindrome = true;
-        int start = 0;               // Pointer 1: Beginning
-        int end = chars.length - 1;  // Pointer 2: End
-
-        while (start < end) {
-            // 3. Compare start & end characters
-            if (chars[start] != chars[end]) {
-                isPalindrome = false;
-                break; // Stop immediately if a mismatch is found
-            }
-            start++; // Move forward
-            end--;   // Move backward
+        // 2. Enqueue and Push characters
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            stack.push(c);   // Goes to the top
+            queue.add(c);    // Goes to the back
         }
 
-        // Display result
+        boolean isPalindrome = true;
+
+        // 3. Compare dequeue vs pop
+        while (!stack.isEmpty()) {
+            char fromStack = stack.pop();    // Last character
+            char fromQueue = queue.remove(); // First character
+
+            if (fromStack != fromQueue) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        // 4. Print Result
         if (isPalindrome) {
-            System.out.println("Result: It is a palindrome!");
+            System.out.println("✅ Result: It is a palindrome!");
         } else {
-            System.out.println("Result: It is NOT a palindrome.");
+            System.out.println("❌ Result: It is NOT a palindrome.");
         }
 
         scanner.close();
