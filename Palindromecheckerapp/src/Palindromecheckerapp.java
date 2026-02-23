@@ -9,37 +9,25 @@ public class Palindromecheckerapp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine().toLowerCase();
 
-        // 1. Initialize Data Structures
-        Stack<Character> stack = new Stack<>();       // LIFO
-        Queue<Character> queue = new LinkedList<>();  // FIFO
+        Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
 
-        // 2. Enqueue and Push characters
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
-            stack.push(c);   // Goes to the top
-            queue.add(c);    // Goes to the back
+            stack.push(c);
+            queue.add(c);
         }
 
         boolean isPalindrome = true;
 
-        // 3. Compare dequeue vs pop
         while (!stack.isEmpty()) {
-            char fromStack = stack.pop();    // Last character
-            char fromQueue = queue.remove(); // First character
-
-            if (fromStack != fromQueue) {
+            if (stack.pop() != queue.remove()) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        // 4. Print Result
-        if (isPalindrome) {
-            System.out.println("✅ Result: It is a palindrome!");
-        } else {
-            System.out.println("❌ Result: It is NOT a palindrome.");
-        }
-
+        System.out.println(isPalindrome ? "✅ Result: It is a palindrome!" : "❌ Result: It is NOT a palindrome.");
         scanner.close();
     }
 }
