@@ -1,33 +1,25 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+ class Palindromecheckerapp {
 
-public class Palindromecheckerapp {
-    public static boolean isPalindrome(String input) {
-        // Clean the string (remove spaces/case)
-        String cleanInput = input.replaceAll("\\s+", "").toLowerCase();
-
-        Deque<Character> deque = new ArrayDeque<>();
-
-        // 1. Insert characters into deque
-        for (char ch : cleanInput.toCharArray()) {
-            deque.addLast(ch);
+    public static boolean checkPalindrome(String str) {
+        // 1. Base Conditions
+        // If length is 0 or 1, it's a palindrome
+        if (str.length() <= 1) {
+            return true;
         }
 
-        // 2. Remove first & last and compare until empty (or 1 remains)
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
-                return false; // Mismatch found
-            }
+        // 2. Compare start and end characters
+        if (str.charAt(0) == str.charAt(str.length() - 1)) {
+            // 3. Recursive Call: Check the substring excluding the ends
+            return checkPalindrome(str.substring(1, str.length() - 1));
         }
 
-        return true; // All pairs matched
+        // If characters don't match, it's not a palindrome
+        return false;
     }
 
     public static void main(String[] args) {
-        String test = "Racecar";
-        System.out.println("Is '" + test + "' a palindrome? " + isPalindrome(test));
+        String word = "radar";
+        boolean result = checkPalindrome(word.toLowerCase());
+        System.out.println("Is '" + word + "' a palindrome? " + result);
     }
 }
