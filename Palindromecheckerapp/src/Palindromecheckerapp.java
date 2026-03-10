@@ -1,42 +1,40 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Palindromecheckerapp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter a string: ");
-        String input = scanner.nextLine().toLowerCase();
+        String input = scanner.nextLine();
 
-        // 1. Initialize Data Structures
-        Stack<Character> stack = new Stack<>();       // LIFO
-        Queue<Character> queue = new LinkedList<>();  // FIFO
+        // Use Java's built-in Deque interface
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // 2. Enqueue and Push characters
-        for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            stack.push(c);   // Adds to top
-            queue.add(c);    // Adds to back
+        // 1. Add all characters to the rear of the deque
+        for (char ch : input.toCharArray()) {
+            deque.addLast(ch);
         }
 
-        boolean isMatch = true;
+        boolean isPalindrome = true;
 
-        // 3. Compare dequeue vs pop
-        // The Queue gives us the string from start-to-end (FIFO)
-        // The Stack gives us the string from end-to-start (LIFO)
-        while (!stack.isEmpty()) {
-            if (stack.pop() != queue.remove()) {
-                isMatch = false;
+        // 2. Compare front and rear until 0 or 1 character remains
+        while (deque.size() > 1) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+
+            if (first != last) {
+                isPalindrome = false;
                 break;
             }
         }
 
-        // 4. Print Result
-        if (isMatch) {
-            System.out.println("✅ It's a palindrome! (FIFO and LIFO sequences matched)");
+        // 3. Output result
+        if (isPalindrome) {
+            System.out.println("The string is a Palindrome");
         } else {
-            System.out.println("❌ Not a palindrome. (Sequences differed)");
+            System.out.println("The string is NOT a Palindrome");
         }
 
         scanner.close();
